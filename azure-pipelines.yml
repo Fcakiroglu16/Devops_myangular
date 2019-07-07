@@ -1,0 +1,21 @@
+variables:
+  buildConfiguration: "Release"
+
+steps:
+  - task: Npm@1
+    displayName: "npm install"
+    inputs:
+      command: install
+      workingDir: AngularProjem
+
+  - task: Npm@1
+    displayName: "Build Angular"
+    inputs:
+      command: custom
+      customCommand: run build -- --prod
+      workingDir: AngularProjem
+
+  - task: PublishPipelineArtifact@0
+    inputs:
+      artifactName: "angular"
+      targetPath: "AngularProjem/dist"
